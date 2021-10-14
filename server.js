@@ -1,10 +1,9 @@
 const express=require('express');
 const bodyParser=require('body-parser');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt') ;
+const saltRounds = 10;
 
 const app=express();
-const saltRounds = 10;
-const myPlaintextPassword = 'password';
 
 app.use(bodyParser.json());
 
@@ -39,12 +38,12 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/signin',(req,res)=>{
-    bcrypt.compare(myPlaintextPassword, '$2b$10$8UXLa5o3ufv3XJDI6Ws4UuxTzSyECj3ukg9cTWX2dDBYYRa9aOg4y', function(err, result) {
+    bcrypt.compare('apples', '$2b$10$myZTe0vMt1BIiH0qRQGIwe7t7G8S7uUPPhmAsFoY1OI6w5Yb3/kIq', function(err, res) {
         console.log('first guess',res);
-    });
-    bcrypt.compare('veggies', '$2b$10$8UXLa5o3ufv3XJDI6Ws4UuxTzSyECj3ukg9cTWX2dDBYYRa9aOg4y', function(err, result) {
-        console.log('Second guess',res);
-    });
+    })
+    bcrypt.compare('nice', '$2b$10$myZTe0vMt1BIiH0qRQGIwe7t7G8S7uUPPhmAsFoY1OI6w5Yb3/kIq', function(err, res) {
+        console.log('Scenod guess',res);
+    })
     if(req.body.email===database.users[0].email&&
         req.body.password===database.users[0].password){
             res.json('Success');
@@ -55,6 +54,9 @@ app.post('/signin',(req,res)=>{
 
 app.post('/register',(req,res)=>{
     const{name,email,password}=req.body;
+    // const salt = bcrypt.genSaltSync(saltRounds);
+    // const hash = bcrypt.hashSync(password,salt);
+    // console.log(hash);
     database.users.push({
         id:'125',
         name:name,
