@@ -1,0 +1,28 @@
+{
+  "name": "FaceRecoginition_Server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/John-09/FaceRecoginition_Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/John-09/FaceRecoginition_Server/issues"
+  },
+  "homepage": "https://github.com/John-09/FaceRecoginition_Server#readme"
+}
