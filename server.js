@@ -2,7 +2,24 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const bcrypt = require('bcrypt') ;
 const saltRounds = 10;
-const cors = require('cors')
+const cors = require('cors');
+const knex=require('knex');
+
+const db=knex({
+    client: 'mysql',
+    version: '5.7',
+    connection: {
+      host : '127.0.0.1',
+      port : 3306,
+      user : 'root',
+      password : 'Johnee',
+      database : 'test'
+    }
+  });
+
+//   mysql.select ('*').from ('login').then(data=>{
+//         console.log(data);
+//   });
 
 const app=express();
 
@@ -57,18 +74,29 @@ app.post('/signin',(req,res)=>{
 })
 
 app.post('/register',(req,res)=>{
-    const{name,email,password}=req.body;
+    const{name,email,password,joined}=req.body;
     // const salt = bcrypt.genSaltSync(saltRounds);
     // const hash = bcrypt.hashSync(password,salt);
     // console.log(hash);
-    database.users.push({
-        id:'125',
-        name:name,
-        email:email,
-        entries:0,
-        joined:new Date()
-    })
-    res.json(database.users[database.users.length-1]);
+    // db.query(
+    //     "INSERT INTO users (name,email,joined) VALUES (name,email,new Date())",
+    //     [name,email,joined],
+    //     (err,res)=>{
+    //         console.log(err);
+    //     }
+    // );
+    db('users')
+    return knex('users')
+        .returning('*')  
+        .insert({
+            email:email,
+            name:name,
+            joined:new Date()
+        })
+        .then(user=>{
+            res.json(user);
+        })
+        .catch(err=>res.status(400).json('Unable to register'))
 })
 
 app.get('/profile/:id',(req,res)=>{
@@ -101,6 +129,6 @@ app.put('/image',(req,res)=>{
 })
 
 
-app.listen(3000,()=>{
+app.listen(3003,()=>{
     console.log('App is working');
 })
