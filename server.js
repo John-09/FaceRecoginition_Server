@@ -6,18 +6,16 @@ const cors = require('cors');
 const knex=require('knex');
 
 const db=knex({
-    client: 'mysql',
-    version: '5.7',
+    client: 'pg',
     connection: {
       host : '127.0.0.1',
-      port : 3306,
-      user : 'root',
-      password : 'Johnee',
-      database : 'test'
+      user : 'postgres',
+      password : '1234567',
+      database : 'facedetect'
     }
   });
 
-//   mysql.select ('*').from ('login').then(data=>{
+//   db.select ('*').from ('users').then(data=>{
 //         console.log(data);
 //   });
 
@@ -33,6 +31,7 @@ const database={
             name:'John',
             password:'hello',
             email:'john@gmail.com',
+            password:"hello",
             entries:0,
             joined:new Date()
         },
@@ -78,15 +77,7 @@ app.post('/register',(req,res)=>{
     // const salt = bcrypt.genSaltSync(saltRounds);
     // const hash = bcrypt.hashSync(password,salt);
     // console.log(hash);
-    // db.query(
-    //     "INSERT INTO users (name,email,joined) VALUES (name,email,new Date())",
-    //     [name,email,joined],
-    //     (err,res)=>{
-    //         console.log(err);
-    //     }
-    // );
     db('users')
-    return knex('users')
         .returning('*')  
         .insert({
             email:email,
@@ -94,38 +85,33 @@ app.post('/register',(req,res)=>{
             joined:new Date()
         })
         .then(user=>{
-            res.json(user);
+            res.json(user[0]);
         })
         .catch(err=>res.status(400).json('Unable to register'))
 })
 
 app.get('/profile/:id',(req,res)=>{
     const{id}=req.params;
-    let found=false;
-    database.users.forEach(user=>{
-        if(user.id===id){
-            found=true;
-            return res.json(user);
+    db.select('*').from('users').where({id})
+        .then(user=>{
+        if(user.length){
+            res.json(user[0])
+        }else{
+            res.status(400).json('Not found')
         }
     })
-    if(!found){
-        res.status(400).json('Not found');
-    }
+    .catch(err=> res.status(400).json('err getting user'))
 })
 
 app.put('/image',(req,res)=>{
     const{id}=req.body;
-    let found=false;
-    database.users.forEach(user=>{
-        if(user.id===id){
-            found=true;
-            user.entries++
-            return res.json(user.entries);
-        }
+    db('users').where('id','=',id)
+    .increment('entries',1)
+    .returning('entries')
+    .then(entries=>{
+        res.json(entries[0]);
     })
-    if(!found){
-        res.status(400).json('Not found');
-    }
+    .catch(err=>res.status(400).json("Unable to get entries"))
 })
 
 
