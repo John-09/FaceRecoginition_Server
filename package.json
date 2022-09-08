@@ -14,9 +14,6 @@
     "pg": "^8.7.1",
     "nodemon": "^2.0.7"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  },
   "scripts": {
     "start": "nodemon server.js"
   },
@@ -24,6 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/John-09/FaceRecoginition_Server.git"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
