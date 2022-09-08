@@ -1,7 +1,7 @@
 {
   "name": "FaceRecoginition_Server",
   "version": "1.0.0",
-  "description": "",
+  "description": "nodemon server.js",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -14,7 +14,7 @@
     "pg": "^8.7.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.14"
   },
   "scripts": {
     "start": "nodemon server.js"
