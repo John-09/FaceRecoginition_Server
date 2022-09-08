@@ -1,7 +1,7 @@
 {
-  "name": "FaceRecoginition_Server",
+  "name": "FaceRecoginition-Server",
   "version": "1.0.0",
-  "description": "nodemon server.js",
+  "description": "",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -17,8 +17,9 @@
     "nodemon": "^1.12.7"
   },
   "scripts": {
-    "start": "nodemon server.js"
-  },
+    "start": "node fileName.js",
+    "start:dev": "nodemon fileName.js"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/John-09/FaceRecoginition_Server.git"
