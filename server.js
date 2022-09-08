@@ -11,14 +11,14 @@ const image=require('./Controllers/image');
 
 
 const db=knex({
-    client: 'pg',
-    connection: {
-      host : '127.0.0.1',
-      user : 'postgres',
-      password : '1234567',
-      database : 'facedetect'
-    }
-  });
+  client: 'pg',
+  connection: {
+    host : '127.0.0.1',
+    user : 'postgres',
+    password : 'root',
+    database : 'facedetect'
+  }
+});
 
 //   db.select ('*').from ('users').then(data=>{
 //         console.log(data);
