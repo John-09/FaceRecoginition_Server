@@ -13,7 +13,7 @@ const image=require('./Controllers/image');
 const db=knex({
   client: 'pg',
   connection: {
-    connectionString : 'postgresql-vertical-51405',
+    connectionString : 'process.env.DATABASE_URL',
     ssl: {
       rejectUnauthorized: false
     }   
